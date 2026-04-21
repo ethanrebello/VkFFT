@@ -30,3 +30,8 @@ __pycache__/
 # OS Files
 .DS_Store
 Thumbs.db
+
+# demo files
+*.wav
+# Generated CUDA libraries
+_fft_libs/
