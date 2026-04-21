@@ -2,7 +2,7 @@
 // Turns a length-N DFT into a length-M cyclic convolution
 // (M = next power of 2 >= 2N-1), then reuses our hybrid radix-2 FFT.
 //
-// nvcc -O2 -std=c++17 -arch=sm_75 fft_gpu_bluestein.cu -o fft_gpu_bluestein
+// nvcc -O2 -std=c++17 -arch=sm_80 fft_gpu_bluestein.cu -o fft_gpu_bluestein
 
 #include <cmath>
 #include <complex>
@@ -124,7 +124,7 @@ void fft(cuFC *d_data, int n, bool inv) {
 //   chirp(k) = exp(-i * pi * k^2 / N)
 //   a[k]     = x[k] * chirp(k)
 //   b[k]     = conj(chirp(k)), mirrored at M-k
-// (a * b)[k] is computed as IFFT(FFT(a) * FFT(b)).
+// Cyclic convolution is computed as: IFFT( FFT(a) .* FFT(b) )
 
 // A[k] = x[k] * chirp(k) for k<n, zero otherwise.
 __global__ void build_a(const cuFC *x, cuFC *A, int n, int m) {

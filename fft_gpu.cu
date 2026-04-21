@@ -1,7 +1,7 @@
 // CUDA radix-2 FFT. Uses shared memory for the first log2(chunk) stages, then
 // falls back to global memory for the rest. Works for any power-of-2 N.
 //
-// nvcc -O2 -std=c++17 -arch=sm_75 fft_gpu.cu -o fft_gpu
+// nvcc -O2 -std=c++17 -arch=sm_80 fft_gpu.cu -o fft_gpu
 
 #include <cmath>
 #include <complex>
@@ -42,8 +42,8 @@ void bitrev_host(cuFC *data, int n) {
   }
 }
 
-// Phase 1: each block loads `chunk` elements into shared memory, runs
-// stages len=2..chunk there, then writes back. Input must be bit-reversed.
+// Phase 1: Shared Memory Radix-2 FFT.
+// Each block loads a chunk into shared memory and performs local butterflies.
 __global__ void fft_local(cuFC *data, int chunk) {
   extern __shared__ cuFC shared[];
   int base = blockIdx.x * chunk;

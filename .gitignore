@@ -1,0 +1,32 @@
+# Compiled binaries
+benchmark_all
+fft_cpu
+fft_gpu
+fft_gpu_bluestein
+ntt_gpu
+fft_bluestein
+
+# SSH Keys (Sensitive)
+id_ed25519_tacc
+id_ed25519_tacc.pub
+
+# Benchmark Data
+*.csv
+*.out
+*.err
+results/
+bench_*.csv
+bench_*.out
+bench_*.err
+
+# Graphs
+*.png
+bench_*_graph*.png
+
+# Python/Environment
+__pycache__/
+*.pyc
+
+# OS Files
+.DS_Store
+Thumbs.db
