@@ -26,6 +26,8 @@ bench_*_graph*.png
 # Python/Environment
 __pycache__/
 *.pyc
+.venv/
+plans/
 
 # OS Files
 .DS_Store

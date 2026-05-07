@@ -116,12 +116,12 @@ def plot_graph2(g2, out_path):
         ax_t.errorbar(Nnp, mnp, yerr=snp, fmt="x", color="#9467bd",
                       label="Bluestein (non-pow2)", ms=5, capsize=2, lw=1, alpha=0.8)
         ax_t.errorbar(Np2, mp2, yerr=sp2, fmt="o", color="#9467bd",
-                      label="Bluestein (pow2)", ms=6, capsize=2, lw=1.5)
+                      label="Basic (pow2)", ms=6, capsize=2, lw=1.5)
 
         ax_g.scatter(Nnp, gnp, marker="x", color="#9467bd", s=30,
                      label="Bluestein (non-pow2)", alpha=0.8)
         ax_g.scatter(Np2, gp2, marker="o", color="#9467bd", s=50,
-                     label="Bluestein (pow2)")
+                     label="Basic (pow2)")
 
 
     for ax in (ax_t, ax_g):

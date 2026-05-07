@@ -413,14 +413,18 @@ def compile_libs():
             if res.returncode == 0:
                 res2 = subprocess.run([str(detect_exe)], capture_output=True, text=True)
                 if res2.returncode == 0:
-                    local_arch = res2.stdout.strip()
+                    out = res2.stdout.strip()
+                    if out: local_arch = out
         except: pass
     else:
         try:
-            local_arch = subprocess.run([str(detect_exe)], capture_output=True, text=True).stdout.strip()
+            res = subprocess.run([str(detect_exe)], capture_output=True, text=True)
+            if res.returncode == 0:
+                out = res.stdout.strip()
+                if out: local_arch = out
         except: pass
 
-    archs = [local_arch, "sm_80", "sm_75", "sm_61", "sm_52", "sm_50", "sm_35"]
+    archs = [a for a in [local_arch, "sm_80", "sm_75", "sm_61", "sm_52", "sm_50", "sm_35"] if a]
     
     ok = True
     for wrapper_code, lib_path, name in [
@@ -449,7 +453,7 @@ def compile_libs():
             if not IS_WIN:
                 cmd += ["-Xcompiler", "-fPIC"]
             
-            cmd += [str(src), "-o", str(lib_path), "-lcufft"]
+            cmd += [str(src), "-o", str(lib_path)]
             
             result = subprocess.run(cmd, capture_output=True, text=True)
             if result.returncode == 0:
